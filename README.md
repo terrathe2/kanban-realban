@@ -1,6 +1,6 @@
 # kanban-realban
 
-> Kanban projeck at hacktiv8
+> Kanban projeck at hacktiv8 (https://kanban-b4e17.firebaseapp.com/#/)
 
 ## Build Setup
 
