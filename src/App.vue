@@ -12,13 +12,13 @@
             <div class="modal-body">
               <div class="form-group">
                 <label class="col-form-label" for="inputDefault">Titlle</label>
-                <input class="form-control" id="inputDefault" type="text" @input="inputTitle" required><br>
+                <input class="form-control" id="inputDefault" type="text" @input="inputTitle" v-model="clearTitle" required><br>
                 <label for="exampleTextarea">Description</label>
-                <textarea class="form-control" id="exampleTextarea" rows="5" @input="inputDescription" required></textarea><br>
+                <textarea class="form-control" id="exampleTextarea" rows="5" @input="inputDescription" v-model="clearDescription" required></textarea><br>
                 <label class="col-form-label" for="inputDefault">Point</label>
-                <input class="form-control" id="inputDefault" type="number" min="0" @input="inputPoint"><br>
+                <input class="form-control" id="inputDefault" type="number" min="0" @input="inputPoint" v-model="clearPoint" required><br>
                 <label class="col-form-label" for="inputDefault">Asign To</label>
-                <input class="form-control" id="inputDefault" type="text" @input="inputAssign">
+                <input class="form-control" id="inputDefault" type="text" @input="inputAssign" v-model="clearAssignto" required>
               </div>
             </div>
             <div class="modal-footer">
@@ -39,6 +39,14 @@
 import container from '@/components/container'
 export default {
   name: 'app',
+  data () {
+    return {
+      clearTitle: '',
+      clearDescription: '',
+      clearPoint: '',
+      clearAssignto: ''
+    }
+  },
   components: {
     container
   },
@@ -57,6 +65,10 @@ export default {
     },
     newTask () {
       this.$store.dispatch('newTask')
+      this.clearTitle = ''
+      this.clearDescription = ''
+      this.clearPoint = ''
+      this.clearAssignto = ''
     }
   }
 }

@@ -11,7 +11,7 @@
             Assign To : {{ value.assignTo }}<br><br>
           </div>
           <div class="card-footer">
-            <button type="button" class="btn btn-primary center">Delete</button>
+            <button type="button" class="btn btn-primary center" @click="deleteTodo(index)">Delete</button>
             <button type="button" class="btn btn-primary right" @click="changeActive(index)">To Active</button>
           </div>
         </div>
@@ -27,6 +27,29 @@
 export default {
   props: ['todoList'],
   methods: {
+    deleteTodo (index) {
+      this.$swal({
+        title: 'Are you sure?',
+        text: '',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'red',
+        cancelButtonColor: '#eaeaea',
+        confirmButtonText: 'Are you sure?'
+      }).then(() => {
+        this.$swal({
+          title: 'Bye bye Honey :(',
+          text: 'Hope ill be in your task again',
+          imageUrl: 'https://media.giphy.com/media/12Y2QggFypRf7G/giphy.gif',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+          animation: false
+        })
+
+        this.$db.ref('todo').child(this.todoList[index]['.key']).remove()
+      })
+    },
     changeActive (index) {
       // console.log(this.todoList[index]['.key'])
       let obj = {
@@ -36,8 +59,28 @@ export default {
         title: this.todoList[index].title
       }
 
-      this.$db.ref('active').push(obj)
-      this.$db.ref('todo').child(this.todoList[index]['.key']).remove()
+      this.$swal({
+        title: 'Are you sure?',
+        text: '',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#22ff00',
+        cancelButtonColor: '#eaeaea',
+        confirmButtonText: 'Change it to Active'
+      }).then(() => {
+        this.$swal({
+          title: 'Ganbatte Honey!!',
+          text: 'You got this!!',
+          imageUrl: 'https://s-media-cache-ak0.pinimg.com/originals/c6/5a/6c/c65a6c3cb6119ff17caed8325d269f80.gif',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+          animation: false
+        })
+
+        this.$db.ref('active').push(obj)
+        this.$db.ref('todo').child(this.todoList[index]['.key']).remove()
+      })
     }
   }
 }
@@ -69,7 +112,7 @@ export default {
 
   .right{
     float: right;
-    background-color: cyan;
+    background-color: #22ff00;
     color: black;
     opacity: 0.6;
   }

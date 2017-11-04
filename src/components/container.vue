@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Kanban Realban Board</h1>
+    <h1>Kanban-ci Board</h1>
     <todo :todoList="todoList" />
     <active :activeList="activeList" />
     <finished :finishedList="finishedList" />
