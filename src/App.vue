@@ -6,23 +6,26 @@
 
         <div class="modal-content">
           <div class="modal-header bgcolor">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">New Task</h4>
           </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label class="col-form-label" for="inputDefault">Titlle</label>
-              <input class="form-control" id="inputDefault" type="text"><br>
-              <label for="exampleTextarea">Description</label>
-              <textarea class="form-control" id="exampleTextarea" rows="5"></textarea><br>
-              <label class="col-form-label" for="inputDefault">Asign To</label>
-              <input class="form-control" id="inputDefault" type="text">
+          <form id="newTaskForm" method="post" @submit.prevent="newTask">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Titlle</label>
+                <input class="form-control" id="inputDefault" type="text" @input="inputTitle" required><br>
+                <label for="exampleTextarea">Description</label>
+                <textarea class="form-control" id="exampleTextarea" rows="5" @input="inputDescription" required></textarea><br>
+                <label class="col-form-label" for="inputDefault">Point</label>
+                <input class="form-control" id="inputDefault" type="number" min="0" @input="inputPoint"><br>
+                <label class="col-form-label" for="inputDefault">Asign To</label>
+                <input class="form-control" id="inputDefault" type="text" @input="inputAssign">
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </form>
         </div>
 
       </div>
@@ -38,17 +41,31 @@ export default {
   name: 'app',
   components: {
     container
+  },
+  methods: {
+    inputTitle (e) {
+      this.$store.commit('inputTitle', e.target.value)
+    },
+    inputDescription (e) {
+      this.$store.commit('inputDescription', e.target.value)
+    },
+    inputPoint (e) {
+      this.$store.commit('inputPoint', e.target.value)
+    },
+    inputAssign (e) {
+      this.$store.commit('inputAssign', e.target.value)
+    },
+    newTask () {
+      this.$store.dispatch('newTask')
+    }
   }
 }
 </script>
 
 <style>
-*{
-  font-family: 'Cabin Sketch', cursive;
-}
-
 #app {
   text-align: center;
+  font-family: 'Cabin Sketch', cursive;
 }
 
 body{
